@@ -1,25 +1,19 @@
-<?php 
+<?php
 
 	require_once("../inc/config.php");
 	require_once(ROOT_PATH . "inc/products.php");
-	$products = get_products_all();
 
 // if an ID is specified in the query string, use it
 if (isset($_GET["id"])) {
 	$product_id = $_GET["id"];
-
-	// if there is a real product that corresponds to the ID
-	// specified in the query string, use that for $product
-	if (isset($products[$product_id])) {
-		$product = $products[$product_id];
-	}
+	$product = get_product_single($product_id);
 }
 
-// a $product will only be set if an ID is specified in the query
+// a $product will only be set if an ID is specified and not false in the query
 // string and it corresponds to a real product. If no product is
 // set, then redirect to the shirts listing page; otherwise, continue
 // on and display the Shirt Details page for that $product
-if (!isset($product)) {
+if (empty($product)) {
 	header("Location: " . BASE_URL . "shirts/");
 	exit();
 }
