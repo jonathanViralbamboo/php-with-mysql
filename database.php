@@ -12,8 +12,10 @@ try {
 
 try {
 	$results = $db->query("SELECT name, price FROM products ORDER BY sku ASC");
-	echo "query ran successfully!";
 } catch (Exception $e) {
 	echo "data could not be retrieved from database";
 	exit;
 }
+
+echo "<pre>";
+var_dump($results->fetchAll());
